@@ -22,12 +22,13 @@ class AppRoutes {
     MenuOption(route: 'listviewbuilder', name: 'InfiniteScrol & Pull to refresh', screen: const ListViewBuilderScreen(), icon: Icons.build_circle_outlined ),
   ];
 
-
   static Map<String, Widget Function(BuildContext)> getAppRoutes() {
 
     Map<String, Widget Function(BuildContext)> appRoutes = {};
     appRoutes.addAll({ 'home' : ( BuildContext context ) => const HomeScreen() });
 
+    // Iterate through all the previous list. Each time that we want to add a new route --> We will add an element to the previous list
+    // for (final option in this.menuOptions ) {    // Unnecessary to use 'this', because it's static === no instance is created
     for (final option in menuOptions ) {
       appRoutes.addAll({ option.route : ( BuildContext context ) => option.screen });
     }
@@ -36,6 +37,7 @@ class AppRoutes {
   }
 
   // static Map<String, Widget Function(BuildContext)> routes = {
+  //  Map's value     It's a function which returns a Widget
   //   'home'     : ( BuildContext context ) => const HomeScreen(),
   //   'listview1': ( BuildContext context ) => const Listview1Screen(),
   //   'listview2': ( BuildContext context ) => const Listview2Screen(),
