@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
 
+  // Properties are static, because I follow singleton approach, without the necessity to instantiate the class
   static const Color primary = Colors.pink;
 
+  // copyWith()     Create a copy of a theme, and personalize it specifically each desired property
   static final ThemeData lightTheme = ThemeData.light().copyWith(
-    
-    // Color primario
+    // Primary color
     primaryColor: Colors.indigo,
+
+    // Personalize the properties for all specific type of Widgets, existing in the application
+    // NameOfTheWidgetTheme
 
     // AppBar Theme
     appBarTheme: const AppBarTheme(
@@ -51,15 +55,13 @@ class AppTheme {
         borderRadius: BorderRadius.only( bottomLeft: Radius.circular(10), topRight: Radius.circular(10) )
       ),
 
+    ),
+
+    listTileTheme:  const ListTileThemeData(
+      selectedColor: Colors.black,
+      iconColor: Colors.greenAccent
     )
-
-
-
   );
-
-
-
-
 
 
   static final ThemeData darkTheme = ThemeData.dark().copyWith(

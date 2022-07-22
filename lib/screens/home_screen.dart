@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: ListView.separated(
         itemBuilder: (context, i ) => ListTile(
+          // leading: Icon( menuOptions[i].icon, color: Theme.of(context).primaryColor ),      // Another way to get the color
           leading: Icon( menuOptions[i].icon, color: AppTheme.primary ),
           title: Text( menuOptions[i].name ),
           onTap: () {

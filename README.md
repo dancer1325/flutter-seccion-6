@@ -28,3 +28,7 @@ samples, guidance on mobile development, and a full API reference.
     * `flutter run lib/main.dart`
         * 'lib/main.dart' depends on the relative path between your current terminal and the 'main.dart' file
     
+## Note
+* Structure
+    * theme
+        * Folder to specify the themes in general around the application
