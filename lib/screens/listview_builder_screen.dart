@@ -15,18 +15,18 @@ class _ListViewBuilderScreenState extends State<ListViewBuilderScreen> {
   final ScrollController scrollController = ScrollController();
   bool isLoading = false;
 
+  // Required to override, to listen the scroll
   @override
   void initState() {
     super.initState();
     
     scrollController.addListener(() {
-        // print(' ${scrollController.position.pixels}, ${scrollController.position.maxScrollExtent} ');
+        print(' ${scrollController.position.pixels}, ${scrollController.position.maxScrollExtent} ');
         if ( (scrollController.position.pixels + 500) >= scrollController.position.maxScrollExtent )  {
-          // add5();
-          fetchData();
+          // add5();        // Add more elements to chek, once you scroll to the bottom
+          fetchData();      // Fetch new elements more slowly
         }
     });
-
   }
 
   Future fetchData() async {
@@ -36,7 +36,7 @@ class _ListViewBuilderScreenState extends State<ListViewBuilderScreen> {
     isLoading = true;
     setState(() {});
 
-    await Future.delayed( const Duration( seconds: 3 ));
+    await Future.delayed( const Duration( seconds: 3 ));    // Delay the load of data once you are scrolling
 
     add5();
 
@@ -45,6 +45,7 @@ class _ListViewBuilderScreenState extends State<ListViewBuilderScreen> {
 
     if ( scrollController.position.pixels + 100 <= scrollController.position.maxScrollExtent ) return;
 
+    // Once the fetch data has been loaded and you are at the bottom --> Move the scroll automatically
     scrollController.animateTo(
       scrollController.position.pixels + 120, 
       duration: const Duration( milliseconds: 300 ), 
@@ -52,8 +53,6 @@ class _ListViewBuilderScreenState extends State<ListViewBuilderScreen> {
     );
     
   }
-
-
 
   void add5() {
     final lastId = imagesIds.last;
@@ -69,33 +68,34 @@ class _ListViewBuilderScreenState extends State<ListViewBuilderScreen> {
     imagesIds.clear();
     imagesIds.add(lastId + 1);
     add5();
-
   }
-
 
   @override
   Widget build(BuildContext context) {
 
+    // Get device's size
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: MediaQuery.removePadding(
+      // appBar     In this case, we don't specify it, because we want to fulfill all the height
+      body: MediaQuery.removePadding(     // Allows remove padding let, although you haven't specified the appBar
         context: context,
         removeTop: true,
         removeBottom: true,
-        child: Stack(
+        child: Stack(         // Similar to Colum or Row
           children: [
 
+            // Widget to refresh, even if you scroll to the top, fetching new images
             RefreshIndicator(
               color: AppTheme.primary,
               onRefresh: onRefresh,
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                controller: scrollController,
+                controller: scrollController,   // Any Widget which allows making scroll, has got a controller to check how far is from the last element of the list
                 itemCount: imagesIds.length,
                 itemBuilder: (BuildContext context, int index) {
                   return FadeInImage(
-                    width: double.infinity,
+                    width: double.infinity,     // Avoid problems in which the loadingImage's dimension != and finalImage's dimension
                     height: 300,
                     fit: BoxFit.cover,
                     placeholder: const AssetImage('assets/jar-loading.gif'), 
@@ -105,15 +105,14 @@ class _ListViewBuilderScreenState extends State<ListViewBuilderScreen> {
               ),
             ),
 
-
-            if ( isLoading ) 
+            // Widget to indicate to the user that it's loading / fetching the data
+            if ( isLoading )
+              // Widget to indicate the position of a widget into a Stack
               Positioned(
                 bottom: 40,
                 left: size.width * 0.5 - 30,
                 child: const _LoadingIcon()
               )
-
-
           ],
         ),
       ),
