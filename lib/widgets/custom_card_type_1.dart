@@ -18,7 +18,8 @@ class CustomCardType1 extends StatelessWidget {
             title: Text('Soy un título'),
             subtitle: Text('Ad et cillum incididunt duis Lorem consectetur dolor ex irure consectetur do velit enim eiusmod. Mollit aliquip amet amet elit deserunt ex incididunt magna laboris.'),
           ),
-        
+
+          // Widget to inset its child, in which you can specify the padding
           Padding(
             padding: const EdgeInsets.only( right: 5 ),
             child: Row(
