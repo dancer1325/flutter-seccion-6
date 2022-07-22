@@ -7,8 +7,10 @@ class AlertScreen extends StatelessWidget {
    
   const AlertScreen({Key? key}) : super(key: key);
 
+  // Since this class comes from StatelessWidget --> Required to pass by argument. If it would be StatefulWidget --> Unnecessary to pass by argument
   void displayDialogIOS( BuildContext context ) {
 
+    // Use cupertino dialog, which follows IOS's style
     showCupertinoDialog(
       barrierDismissible: false,
       context: context, 
@@ -44,9 +46,9 @@ class AlertScreen extends StatelessWidget {
   void displayDialogAndroid(BuildContext context) {
     
     showDialog(
-      barrierDismissible: false,
+      barrierDismissible: false,  // barrierDismissible   Allows closing the dialog, clicking in the shadow
       context: context, 
-      builder: ( context ) {
+      builder: ( context ) {    // builder    Function with context by argument, which returns a Widget
 
         return AlertDialog(
           elevation: 5,
@@ -77,8 +79,6 @@ class AlertScreen extends StatelessWidget {
         
       }
     );
-
-
   }
 
   
@@ -97,7 +97,8 @@ class AlertScreen extends StatelessWidget {
              child: Text('Mostrar alerta', style: TextStyle( fontSize: 16 )),
            ),
           //  onPressed: () => displayDialogAndroid( context )
-           onPressed: () => Platform.isAndroid 
+           onPressed: () => Platform.isAndroid      // Platform   Class to determine the OS
+                // Set different logic based on platform, because the alerts' style is different
                 ? displayDialogAndroid( context )
                 : displayDialogIOS( context )
          ) 
