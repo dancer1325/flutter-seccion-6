@@ -34,12 +34,18 @@ class CustomCardType2 extends StatelessWidget {
             fadeInDuration: const Duration(milliseconds: 300),
           ),
 
+          // Add the container, and using a default name if it's not sent by arguments
+          // Container(
+          //     alignment: AlignmentDirectional.centerEnd,
+          //     padding: const EdgeInsets.only( right: 20, top: 10, bottom: 10 ),
+          //     child: Text( name ?? 'No Title' )
+          // )
 
           if ( name != null )
             Container(
               alignment: AlignmentDirectional.centerEnd,
               padding: const EdgeInsets.only( right: 20, top: 10, bottom: 10 ),
-              child: Text( name ?? 'No Title' )
+              child: Text( name! )   // We manage that name is null, because we have set up the previous if conditional
             )
 
         ],
