@@ -16,7 +16,7 @@ class CustomCardType2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      clipBehavior: Clip.antiAlias,
+      clipBehavior: Clip.antiAlias,     // Fit (cut, shorten, ...) the content
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18)
       ),
@@ -28,7 +28,7 @@ class CustomCardType2 extends StatelessWidget {
           FadeInImage(
             image: NetworkImage( imageUrl ), 
             placeholder: const AssetImage('assets/jar-loading.gif'),
-            width: double.infinity,
+            width: double.infinity,   // Take all the available width. If you use it in a Widget with flexible width --> Infinite loop
             height: 230,
             fit: BoxFit.cover,
             fadeInDuration: const Duration(milliseconds: 300),
